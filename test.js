@@ -23,55 +23,88 @@ describe('changelog', function () {
   })
 
   it('should generate a changelog from a yaml file:', function (done) {
-    template.page('readme.md', {content: '<%= changelog("fixtures/a.yml") %>'});
-    template.render('readme.md', function (err, content) {
+    template.page('foo.md', {content: '<%= changelog("fixtures/a.yml") %>'});
+    template.render('foo.md', function (err, content) {
+      if (err) console.log(err);
+
       content.should.equal([
         '**DATE**       **VERSION**   **CHANGES**                  ',
         '* 2016-12-26   v0.1.0        Got stuck in another chimney.',
       ].join('\n'));
-
       done();
-    })
+    });
   });
 
-  it('should generate a changelog from an object:', function () {
-    var data = { 'v0.1.0': { date: '2016-12-26', changes: [ 'Got stuck in another chimney.' ] } };
-    changelog(data).should.equal([
-      '**DATE**       **VERSION**   **CHANGES**                  ',
-      '* 2016-12-26   v0.1.0        Got stuck in another chimney.',
-    ].join('\n'));
+  it('should generate a changelog from an object passed to the helper:', function (done) {
+    var str = '<%= changelog({ "v0.1.0": { date: "2016-12-26", changes: [ "Got stuck in another chimney." ] } }) %>';
+
+    template.page('bar.md', {content: str});
+    template.render('bar.md', function (err, content) {
+      if (err) console.log(err);
+
+      content.should.equal([
+        '**DATE**       **VERSION**   **CHANGES**                  ',
+        '* 2016-12-26   v0.1.0        Got stuck in another chimney.',
+      ].join('\n'));
+      done();
+    });
   });
 
-  it('should generate a changelog from an array:', function () {
-    var data = [
-      {date: '2016-12-26', version: 'v0.1.0', changes: [ 'Got stuck in another chimney.' ]
-    }];
+  it('should generate a changelog from an array passed to the helper:', function (done) {
+    var str = '<%= changelog([{date: "2016-12-26", version: "v0.1.0", changes: [ "Got stuck in another chimney." ]}]) %>';
 
-    changelog(data).should.equal([
-      '**DATE**       **VERSION**   **CHANGES**                  ',
-      '* 2016-12-26   v0.1.0        Got stuck in another chimney.',
-    ].join('\n'));
+    template.page('bar.md', {content: str});
+    template.render('bar.md', function (err, content) {
+      if (err) console.log(err);
+
+      content.should.equal([
+        '**DATE**       **VERSION**   **CHANGES**                  ',
+        '* 2016-12-26   v0.1.0        Got stuck in another chimney.',
+      ].join('\n'));
+      done();
+    });
   });
 
-  it('should allow a custom date function:', function () {
-    var data = [
-      {date: '2016-12-26', version: 'v0.1.0', changes: [ 'Got stuck in another chimney.' ]
-    }];
-
-    var opts = {};
-    opts.dateFn = function (date) {
-      return ' * ' + moment(date).format('YYYY-MM-DD');
+  it('should generate a changelog from an array passed on the context:', function (done) {
+    var data = {
+      changes: [
+        {date: '2016-12-26', version: 'v0.1.0', changes: [ 'Got stuck in another chimney.' ]
+      }]
     };
 
-    changelog(data, opts).should.equal([
-      '**DATE**       **VERSION**   **CHANGES**                  ',
-      '* 2016-12-26   v0.1.0        Got stuck in another chimney.',
-    ].join('\n'));
+    template.page('bar.md', {content: '<%= changelog(changes) %>'});
+    template.render('bar.md', data, function (err, content) {
+      if (err) console.log(err);
+
+      content.should.equal([
+        '**DATE**       **VERSION**   **CHANGES**                  ',
+        '* 2016-12-26   v0.1.0        Got stuck in another chimney.',
+      ].join('\n'));
+      done();
+    });
   });
 
-  it('should throw an error:', function () {
-    (function () {
-      changelog();
-    }).should.throw('helper-changelog cannot find data or a file to read.');
+  it('should allow a custom date function:', function (done) {
+    var data = {
+      changes: [
+        {date: '2016-12-26', version: 'v0.1.0', changes: [ 'Got stuck in another chimney.' ]
+      }],
+      opts: {
+        dateFn: function (date) {
+          return ' * ' + moment(date).format('YYYY-MM-DD');
+        }
+      }
+    };
+
+    template.page('bar.md', {content: '<%= changelog(changes, opts) %>'});
+    template.render('bar.md', data, function (err, content) {
+      if (err) console.log(err);
+
+      content.should.equal([
+        '**DATE**       **VERSION**   **CHANGES**                  ',
+        '* 2016-12-26   v0.1.0        Got stuck in another chimney.',
+      ].join('\n'));
+      done();
+    });
   });
 });

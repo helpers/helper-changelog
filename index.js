@@ -12,9 +12,9 @@ var merge = require('mixin-deep');
 
 module.exports = function changelog(app) {
   var val = app && app.option && app.option('changelog');
-  console.log(app)
   return function (data, options) {
     data = data || val || null;
+
     if (!data) {
       throw new Error('helper-changelog cannot find data or a file to read.');
     }
