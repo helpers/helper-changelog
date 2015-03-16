@@ -1,0 +1,41 @@
+{
+  "name": "helper-changelog",
+  "description": "Template helper for generating a markdown-formatted changelog from an object, array or yaml file.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jonschlinkert/helper-changelog",
+  "author": {
+    "name": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonschlinkert/helper-changelog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/helper-changelog/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/jonschlinkert/helper-changelog/blob/master/LICENSE"
+  },
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "mixin-deep": "^1.0.1",
+    "stringify-changelog": "^0.1.0"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "moment": "^2.9.0",
+    "should": "*",
+    "template": "^0.12.4"
+  }
+}
