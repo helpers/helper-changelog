@@ -2,24 +2,17 @@
   "name": "helper-changelog",
   "description": "Template helper for generating a markdown-formatted changelog from an object, array or yaml file.",
   "version": "0.1.0",
-  "homepage": "https://github.com/jonschlinkert/helper-changelog",
-  "author": {
-    "name": "Jon Schlinkert",
-    "url": "https://github.com/jonschlinkert"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jonschlinkert/helper-changelog.git"
-  },
+  "homepage": "https://github.com/helpers/helper-changelog",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "helpers/helper-changelog",
   "bugs": {
-    "url": "https://github.com/jonschlinkert/helper-changelog/issues"
+    "url": "https://github.com/helpers/helper-changelog/issues"
   },
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/jonschlinkert/helper-changelog/blob/master/LICENSE"
-  },
+  "license": "MIT",
   "files": [
-    "index.js"
+    "index.js",
+    "LICENSE",
+    "README.md"
   ],
   "main": "index.js",
   "engines": {
@@ -37,5 +30,13 @@
     "moment": "^2.9.0",
     "should": "*",
     "template": "^0.12.4"
-  }
+  },
+  "keywords": [
+    "changelog",
+    "helper",
+    "helpers",
+    "render",
+    "template",
+    "templates"
+  ]
 }
