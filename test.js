@@ -19,7 +19,7 @@ describe('changelog', function() {
     app = new App();
     app.create('pages');
     app.engine('md', require('engine-base'));
-    app.helper('changelog', changelog());
+    app.helper('changelog', changelog);
   })
 
   it('should generate a changelog from a yaml file:', function(cb) {
